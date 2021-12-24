@@ -30,5 +30,10 @@ public class PostController {
 	public List<PostDto> getAllPosts() {
 		return postService.getAllPosts();
 	}
+	
+	@GetMapping("/getpostbyId")
+	public ResponseEntity<PostDto> getPostById(@RequestBody PostDto postDto) {
+		return ResponseEntity.ok(postService.getPostById(postDto.getId()));
+	}
 
 }
