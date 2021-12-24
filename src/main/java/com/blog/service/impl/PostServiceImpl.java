@@ -1,10 +1,14 @@
 package com.blog.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blog.dto.PostDto;
 import com.blog.entity.Post;
+import com.blog.exception.ResourceNotFoundException;
 import com.blog.repository.PostRepository;
 import com.blog.service.PostService;
 
@@ -16,19 +20,40 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public PostDto createPost(PostDto postDto) {
+		Post post = mapEntity(postDto);
+		Post newPost = postRepository.save(post);
+		
+		return maptoDto(newPost);
+	}
+
+	@Override
+	public List<PostDto> getAllPosts() {
+		List<Post> posts = postRepository.findAll();
+		return posts.stream().map(this::maptoDto).collect(Collectors.toList());
+	}
+	
+	private Post mapEntity(PostDto postDto) {
 		Post post = new Post();
 		post.setTitle(postDto.getTitle());
 		post.setDescription(postDto.getDescription());
 		post.setContent(postDto.getContent());
-		Post newPost = postRepository.save(post);
+		return post;
 		
-		PostDto postResponse = new PostDto();
-		postResponse.setId(newPost.getId());
-		postResponse.setDescription(newPost.getDescription());
-		postResponse.setTitle(newPost.getTitle());
-		postResponse.setContent(newPost.getContent());
-		
-		return postResponse;
+	}
+	
+	private PostDto maptoDto(Post post) {
+		PostDto postDto = new PostDto();
+		postDto.setId(post.getId());
+		postDto.setTitle(post.getTitle());
+		postDto.setDescription(post.getDescription());
+		postDto.setContent(post.getContent());
+		return postDto;
+	}
+
+	@Override
+	public PostDto getPostById(long id) {
+		Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+		return maptoDto(post);
 	}
 
 }
