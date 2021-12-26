@@ -8,7 +8,7 @@ public class PostResponse {
 	private int pageSize;
 	private long totalNumberOfRecords;
 	private int totalPages;
-	private boolean last;
+	private boolean isLastPage;
 	
 	public List<PostDto> getContent() {
 		return content;
@@ -40,11 +40,11 @@ public class PostResponse {
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
 	}
-	public boolean isLast() {
-		return last;
+	public boolean isLastPage() {
+		return isLastPage;
 	}
-	public void setLast(boolean last) {
-		this.last = last;
+	public void setIsLastPage(boolean isLastPage) {
+		this.isLastPage = isLastPage;
 	}
 
 }
