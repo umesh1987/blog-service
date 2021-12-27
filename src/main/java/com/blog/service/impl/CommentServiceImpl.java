@@ -1,6 +1,7 @@
 package com.blog.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.blog.dto.CommentDto;
 import com.blog.entity.Comment;
@@ -10,6 +11,7 @@ import com.blog.repository.CommentRepository;
 import com.blog.repository.PostRepository;
 import com.blog.service.CommentService;
 
+@Service
 public class CommentServiceImpl implements CommentService {
 	
 	@Autowired
