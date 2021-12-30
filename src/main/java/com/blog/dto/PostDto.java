@@ -1,10 +1,13 @@
 package com.blog.dto;
 
+import java.util.List;
+
 public class PostDto {
 	private Long id;
 	private String title;
 	private String description;
 	private String content;
+	private List<CommentDto> comments;
 	
 	public Long getId() {
 		return id;
@@ -29,6 +32,12 @@ public class PostDto {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public List<CommentDto> getComments() {
+		return comments;
+	}
+	public void setComments(List<CommentDto> comments) {
+		this.comments = comments;
 	}
 	
 }
